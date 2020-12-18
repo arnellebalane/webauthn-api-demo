@@ -20,6 +20,7 @@ export default function AuthButtons() {
 }
 
 const cardClass = css`
+  margin-bottom: 50px;
   text-align: center;
 `;
 
