@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import 'antd/dist/antd.css';
+import style from '@/styles/App.module.css';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function App({ Component, pageProps }) {
+  return (
+    <div className={style.wrapper}>
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
-export default MyApp
+export default App;
