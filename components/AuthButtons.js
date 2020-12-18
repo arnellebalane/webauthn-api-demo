@@ -1,7 +1,19 @@
+import { useState } from 'react';
 import { css } from '@emotion/css';
 import { Button, Card } from 'antd';
+import RegisterModal from './RegisterModal';
+import LoginModal from './LoginModal';
+
+const modals = {
+  REGISTER: 'register',
+  LOGIN: 'login',
+};
 
 export default function AuthButtons() {
+  const [modal, setModal] = useState(null);
+
+  const closeModal = () => setModal(null);
+
   return (
     <Card className={cardClass}>
       <p>
@@ -9,12 +21,15 @@ export default function AuthButtons() {
         have one already.
       </p>
 
-      <Button type="primary" className={buttonClass}>
+      <Button type="primary" className={buttonClass} onClick={() => setModal(modals.REGISTER)}>
         Register
       </Button>
-      <Button type="primary" className={buttonClass}>
+      <Button type="primary" className={buttonClass} onClick={() => setModal(modals.LOGIN)}>
         Login
       </Button>
+
+      <RegisterModal visible={modal === modals.REGISTER} onCancel={closeModal} />
+      <LoginModal visible={modal === modals.LOGIN} onCancel={closeModal} />
     </Card>
   );
 }
