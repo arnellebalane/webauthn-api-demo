@@ -1,5 +1,5 @@
+import { css } from '@emotion/css';
 import { Avatar, Button, Dropdown, Menu } from 'antd';
-import style from './CurrentUser.module.css';
 
 export default function CurrentUser({ user }) {
   const menu = (
@@ -10,11 +10,22 @@ export default function CurrentUser({ user }) {
   );
 
   return (
-    <Dropdown overlay={menu} trigger="click">
-      <Button size="large" type="text" className={style.button}>
+    <Dropdown overlay={menu} trigger="click" className={dropdownClass}>
+      <Button size="large" type="text" className={buttonClass}>
         <Avatar size={28} src={user.avatar} />
         <span>{user.name}</span>
       </Button>
     </Dropdown>
   );
 }
+
+const dropdownClass = css`
+  cursor: pointer;
+`;
+
+const buttonClass = css`
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+`;

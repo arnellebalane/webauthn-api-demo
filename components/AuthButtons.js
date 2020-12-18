@@ -1,20 +1,28 @@
+import { css } from '@emotion/css';
 import { Button, Card } from 'antd';
-import style from './AuthButtons.module.css';
 
 export default function AuthButtons() {
   return (
-    <Card>
+    <Card className={cardClass}>
       <p>
         It looks like you're not authenticated. Please login to your account first, or create a new account if you don't
         have one already.
       </p>
 
-      <Button type="primary" className={style.button}>
+      <Button type="primary" className={buttonClass}>
         Register
       </Button>
-      <Button type="primary" className={style.button}>
+      <Button type="primary" className={buttonClass}>
         Login
       </Button>
     </Card>
   );
 }
+
+const cardClass = css`
+  text-align: center;
+`;
+
+const buttonClass = css`
+  margin: 4px 8px;
+`;
