@@ -1,5 +1,6 @@
 import { PageHeader } from 'antd';
 import CurrentUser from '@/components/CurrentUser';
+import AuthButtons from '@/components/AuthButtons';
 
 export default function Home() {
   const currentUser = {
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <main>
       <PageHeader title="WebAuthn API" backIcon={false} extra={headerExtra} />
+      {currentUser && <AuthButtons />}
     </main>
   );
 }
