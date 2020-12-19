@@ -15,6 +15,7 @@
     "@prisma/cli": "2.13.1",
     "@prisma/client": "2.13.1",
     "antd": "4.9.4",
+    "bcrypt": "5.0.0",
     "lodash": "4.17.20",
     "next": "10.0.3",
     "react": "17.0.1",
