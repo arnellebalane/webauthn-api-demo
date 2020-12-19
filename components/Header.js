@@ -1,14 +1,12 @@
+import { useContext } from 'react';
 import { Divider, PageHeader } from 'antd';
 import { css } from '@emotion/css';
+import AuthContext from '@/contexts/AuthContext';
 import CurrentUser from './CurrentUser';
 
 export default function Header() {
-  const currentUser = {
-    name: 'Arnelle Balane',
-    email: 'arnellebalane@gmail.com',
-    avatar: 'https://en.gravatar.com/userimage/33051310/aa9e838f780505306ee5559df8aa9cb7.jpeg',
-  };
-  const headerExtra = currentUser ? <CurrentUser user={currentUser} /> : null;
+  const { user } = useContext(AuthContext);
+  const headerExtra = user ? <CurrentUser user={user} /> : null;
 
   return (
     <>
