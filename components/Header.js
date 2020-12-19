@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import Link from 'next/link';
 import { Divider, PageHeader } from 'antd';
 import { css } from '@emotion/css';
 import AuthContext from '@/contexts/AuthContext';
@@ -8,9 +9,11 @@ export default function Header() {
   const { user } = useContext(AuthContext);
   const headerExtra = user ? <CurrentUser user={user} /> : null;
 
+  const title = <Link href="/">WebAuthn API</Link>;
+
   return (
     <>
-      <PageHeader title="WebAuthn API" backIcon={false} extra={headerExtra} className={headerClass} />
+      <PageHeader title={title} backIcon={false} extra={headerExtra} className={headerClass} />
       <Divider className={dividerClass} />
     </>
   );
