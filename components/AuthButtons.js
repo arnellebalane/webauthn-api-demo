@@ -24,10 +24,11 @@ export default function AuthButtons() {
         'Content-Type': 'application/json',
       },
     });
-    const user = await response.json();
+    const { user, token } = await response.json();
 
     closeModal();
     setTimeout(() => setUser(user), 300);
+    console.log(token);
   };
 
   const handleLogin = async (data) => {
@@ -38,10 +39,11 @@ export default function AuthButtons() {
         'Content-Type': 'application/json',
       },
     });
-    const user = await response.json();
+    const { user, token } = await response.json();
 
     closeModal();
     setTimeout(() => setUser(user), 300);
+    console.log(token);
   };
 
   return (
