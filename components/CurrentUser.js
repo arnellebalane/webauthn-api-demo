@@ -15,7 +15,7 @@ export default function CurrentUser({ user }) {
   return (
     <Dropdown overlay={menu} trigger="click" className={dropdownClass}>
       <Button size="large" type="text" className={buttonClass}>
-        <Avatar size={28} src={user.avatar} />
+        <Avatar size={28} src={user.image_url} />
         <span>{user.name}</span>
       </Button>
     </Dropdown>

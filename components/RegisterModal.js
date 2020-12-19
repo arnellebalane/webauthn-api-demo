@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { css } from '@emotion/css';
 import { Button, Form, Input, Modal, Typography } from 'antd';
 import omit from 'lodash/omit';
@@ -6,29 +7,39 @@ const { Title } = Typography;
 
 export default function RegisterModal({ visible, onSubmit, onCancel }) {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
-  const handleFinish = (values) => {
+  const handleFinish = async (values) => {
+    setLoading(true);
     const data = omit(values, ['passwordConfirmation']);
-    onSubmit(data);
+    await onSubmit(data);
   };
 
   return (
-    <Modal visible={visible} width={420} closable={false} footer={null} onCancel={onCancel}>
+    <Modal
+      visible={visible}
+      width={420}
+      closable={false}
+      keyboard={!loading}
+      maskClosable={!loading}
+      footer={null}
+      onCancel={onCancel}
+    >
       <Title level={5} className={titleClass}>
         Register new account
       </Title>
 
       <Form layout="vertical" form={form} preserve={false} onFinish={handleFinish}>
         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
-          <Input />
+          <Input disabled={loading} />
         </Form.Item>
 
         <Form.Item label="Email" name="email" rules={[{ required: true }]}>
-          <Input type="email" />
+          <Input type="email" disabled={loading} />
         </Form.Item>
 
         <Form.Item label="Password" name="password" rules={[{ required: true }]}>
-          <Input type="password" />
+          <Input type="password" disabled={loading} />
         </Form.Item>
 
         <Form.Item
@@ -46,11 +57,11 @@ export default function RegisterModal({ visible, onSubmit, onCancel }) {
             }),
           ]}
         >
-          <Input type="password" />
+          <Input type="password" disabled={loading} />
         </Form.Item>
 
         <Form.Item noStyle>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" loading={loading} htmlType="submit">
             Register
           </Button>
         </Form.Item>

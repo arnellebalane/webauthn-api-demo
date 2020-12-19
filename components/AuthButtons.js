@@ -1,18 +1,38 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { css } from '@emotion/css';
 import { Button, Card } from 'antd';
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
+import AuthContext from '@/contexts/AuthContext';
 
 const modals = {
   REGISTER: 'register',
   LOGIN: 'login',
 };
 
-export default function AuthButtons({ onRegister, onLogin }) {
-  const [modal, setModal] = useState(null);
+export default function AuthButtons() {
+  const { setUser } = useContext(AuthContext);
 
+  const [modal, setModal] = useState(null);
   const closeModal = () => setModal(null);
+
+  const handleRegister = async (data) => {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const user = await response.json();
+
+    closeModal();
+    setTimeout(() => setUser(user), 300);
+  };
+
+  const handleLogin = (data) => {
+    console.log(data);
+  };
 
   return (
     <Card className={cardClass}>
@@ -28,8 +48,8 @@ export default function AuthButtons({ onRegister, onLogin }) {
         Login
       </Button>
 
-      <RegisterModal visible={modal === modals.REGISTER} onSubmit={onRegister} onCancel={closeModal} />
-      <LoginModal visible={modal === modals.LOGIN} onSubmit={onLogin} onCancel={closeModal} />
+      <RegisterModal visible={modal === modals.REGISTER} onSubmit={handleRegister} onCancel={closeModal} />
+      <LoginModal visible={modal === modals.LOGIN} onSubmit={handleLogin} onCancel={closeModal} />
     </Card>
   );
 }
