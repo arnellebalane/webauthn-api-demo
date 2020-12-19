@@ -7,8 +7,16 @@ export default function Home() {
   const { user } = useContext(AuthContext);
   const notLoggedIn = !Boolean(user);
 
-  const handleRegister = (data) => {
-    console.log(data);
+  const handleRegister = async (data) => {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const user = await response.json();
+    console.log(user);
   };
 
   const handleLogin = (data) => {

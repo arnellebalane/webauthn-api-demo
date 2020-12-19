@@ -5,6 +5,7 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "image_url" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );

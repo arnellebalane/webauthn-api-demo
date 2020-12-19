@@ -1,10 +1,16 @@
 import { css } from '@emotion/css';
 import { Button, Form, Input, Modal, Typography } from 'antd';
+import omit from 'lodash/omit';
 
 const { Title } = Typography;
 
 export default function RegisterModal({ visible, onSubmit, onCancel }) {
   const [form] = Form.useForm();
+
+  const handleFinish = (values) => {
+    const data = omit(values, ['passwordConfirmation']);
+    onSubmit(data);
+  };
 
   return (
     <Modal visible={visible} width={420} closable={false} footer={null} onCancel={onCancel}>
@@ -12,8 +18,8 @@ export default function RegisterModal({ visible, onSubmit, onCancel }) {
         Register new account
       </Title>
 
-      <Form layout="vertical" form={form} preserve={false} onFinish={onSubmit}>
-        <Form.Item label="Full name" name="fullname" rules={[{ required: true }]}>
+      <Form layout="vertical" form={form} preserve={false} onFinish={handleFinish}>
+        <Form.Item label="Name" name="name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
 

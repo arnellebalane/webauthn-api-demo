@@ -13,9 +13,10 @@ generator client {
 model User {
   @@map(name: "users")
 
-  id        Int       @id @default(autoincrement())
-  uid       String    @unique
-  email     String    @unique
-  name      String
-  password  String
+  id          Int       @id @default(autoincrement())
+  uid         String    @unique
+  email       String    @unique
+  name        String
+  password    String
+  image_url   String
 }
