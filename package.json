@@ -5,10 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prisma:generate": "prisma generate",
+    "migrate": "prisma migrate dev --preview-feature",
+    "migrate:reset": "prisma migrate reset --preview-feature"
   },
   "dependencies": {
     "@emotion/css": "11.0.0",
+    "@prisma/cli": "2.13.1",
+    "@prisma/client": "2.13.1",
     "antd": "4.9.4",
     "next": "10.0.3",
     "react": "17.0.1",
