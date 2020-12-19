@@ -30,8 +30,18 @@ export default function AuthButtons() {
     setTimeout(() => setUser(user), 300);
   };
 
-  const handleLogin = (data) => {
-    console.log(data);
+  const handleLogin = async (data) => {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const user = await response.json();
+
+    closeModal();
+    setTimeout(() => setUser(user), 300);
   };
 
   return (
