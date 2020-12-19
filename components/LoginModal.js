@@ -17,7 +17,7 @@ export default function LoginModal({ visible, onCancel }) {
       </Title>
 
       <Form layout="vertical" form={form} preserve={false} onFinish={handleFinish}>
-        <Form.Item label="Username" name="username" rules={[{ required: true }]}>
+        <Form.Item label="Email" name="email" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
 

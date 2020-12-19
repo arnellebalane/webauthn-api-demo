@@ -3,12 +3,8 @@ import { Button, Form, Input, Modal, Typography } from 'antd';
 
 const { Title } = Typography;
 
-export default function RegisterModal({ visible, onCancel }) {
+export default function RegisterModal({ visible, onSubmit, onCancel }) {
   const [form] = Form.useForm();
-
-  const handleFinish = (values) => {
-    console.log(values);
-  };
 
   return (
     <Modal visible={visible} width={420} closable={false} footer={null} onCancel={onCancel}>
@@ -16,7 +12,7 @@ export default function RegisterModal({ visible, onCancel }) {
         Register new account
       </Title>
 
-      <Form layout="vertical" form={form} preserve={false} onFinish={handleFinish}>
+      <Form layout="vertical" form={form} preserve={false} onFinish={onSubmit}>
         <Form.Item label="Full name" name="fullname" rules={[{ required: true }]}>
           <Input />
         </Form.Item>

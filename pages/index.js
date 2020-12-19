@@ -7,9 +7,17 @@ export default function Home() {
   const { user } = useContext(AuthContext);
   const notLoggedIn = !Boolean(user);
 
+  const handleRegister = (data) => {
+    console.log(data);
+  };
+
+  const handleLogin = (data) => {
+    console.log(data);
+  };
+
   return (
     <main>
-      {notLoggedIn && <AuthButtons />}
+      {notLoggedIn && <AuthButtons onRegister={handleRegister} onLogin={handleLogin} />}
 
       <DataFeed />
     </main>

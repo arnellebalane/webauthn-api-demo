@@ -9,7 +9,7 @@ const modals = {
   LOGIN: 'login',
 };
 
-export default function AuthButtons() {
+export default function AuthButtons({ onRegister, onLogin }) {
   const [modal, setModal] = useState(null);
 
   const closeModal = () => setModal(null);
@@ -28,8 +28,8 @@ export default function AuthButtons() {
         Login
       </Button>
 
-      <RegisterModal visible={modal === modals.REGISTER} onCancel={closeModal} />
-      <LoginModal visible={modal === modals.LOGIN} onCancel={closeModal} />
+      <RegisterModal visible={modal === modals.REGISTER} onSubmit={onRegister} onCancel={closeModal} />
+      <LoginModal visible={modal === modals.LOGIN} onSubmit={onLogin} onCancel={closeModal} />
     </Card>
   );
 }
