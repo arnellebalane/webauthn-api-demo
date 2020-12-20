@@ -11,7 +11,7 @@ const modals = {
 };
 
 export default function AuthButtons() {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setToken } = useContext(AuthContext);
 
   const [modal, setModal] = useState(null);
   const closeModal = () => setModal(null);
@@ -27,8 +27,10 @@ export default function AuthButtons() {
     const { user, token } = await response.json();
 
     closeModal();
-    setTimeout(() => setUser(user), 300);
-    console.log(token);
+    setTimeout(() => {
+      setUser(user);
+      setToken(token);
+    }, 300);
   };
 
   const handleLogin = async (data) => {
@@ -42,8 +44,10 @@ export default function AuthButtons() {
     const { user, token } = await response.json();
 
     closeModal();
-    setTimeout(() => setUser(user), 300);
-    console.log(token);
+    setTimeout(() => {
+      setUser(user);
+      setToken(token);
+    }, 300);
   };
 
   return (
