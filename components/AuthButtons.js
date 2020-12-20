@@ -5,7 +5,7 @@ import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
 import AuthContext from '@/contexts/AuthContext';
 
-const modals = {
+const MODALS = {
   REGISTER: 'register',
   LOGIN: 'login',
 };
@@ -53,15 +53,15 @@ export default function AuthButtons() {
         have one already.
       </p>
 
-      <Button type="primary" className={buttonClass} onClick={() => setModal(modals.REGISTER)}>
+      <Button type="primary" className={buttonClass} onClick={() => setModal(MODALS.REGISTER)}>
         Register
       </Button>
-      <Button type="primary" className={buttonClass} onClick={() => setModal(modals.LOGIN)}>
+      <Button type="primary" className={buttonClass} onClick={() => setModal(MODALS.LOGIN)}>
         Login
       </Button>
 
-      <RegisterModal visible={modal === modals.REGISTER} onSubmit={handleRegister} onCancel={closeModal} />
-      <LoginModal visible={modal === modals.LOGIN} onSubmit={handleLogin} onCancel={closeModal} />
+      <RegisterModal visible={modal === MODALS.REGISTER} onSubmit={handleRegister} onCancel={closeModal} />
+      <LoginModal visible={modal === MODALS.LOGIN} onSubmit={handleLogin} onCancel={closeModal} />
     </Card>
   );
 }

@@ -1,9 +1,22 @@
+import { useContext } from 'react';
+import { useRouter } from 'next/router';
 import { Col, Row, Typography } from 'antd';
 import TFACard from '@/components/TFACard';
+import AuthContext, { AUTH_STATE } from '@/contexts/AuthContext';
 
 const { Title } = Typography;
 
 export default function Settings() {
+  const { token } = useContext(AuthContext);
+  const router = useRouter();
+
+  if (token === AUTH_STATE.UNKNOWN) {
+    return null;
+  } else if (token === AUTH_STATE.UNAUTHENTICATED) {
+    router.push('/');
+    return null;
+  }
+
   const setupSecurityKey = () => {
     console.log('Setting up security key');
   };

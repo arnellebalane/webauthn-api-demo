@@ -2,9 +2,15 @@ import { useState, useEffect, createContext } from 'react';
 
 const AuthContext = createContext();
 
+export const AUTH_STATE = {
+  UNKNOWN: undefined,
+  UNAUTHENTICATED: null,
+};
+
 export function AuthContextProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(AUTH_STATE.UNKNOWN);
+  const [token, setToken] = useState(AUTH_STATE.UNKNOWN);
+
   const value = {
     user,
     token,
