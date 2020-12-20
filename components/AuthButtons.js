@@ -16,6 +16,14 @@ export default function AuthButtons() {
   const [modal, setModal] = useState(null);
   const closeModal = () => setModal(null);
 
+  const handleAuthResponse = ({ user, token }) => {
+    closeModal();
+    setTimeout(() => {
+      setUser(user);
+      setToken(token);
+    }, 300);
+  };
+
   const handleRegister = async (data) => {
     const response = await fetch('/api/register', {
       method: 'POST',
@@ -24,13 +32,7 @@ export default function AuthButtons() {
         'Content-Type': 'application/json',
       },
     });
-    const { user, token } = await response.json();
-
-    closeModal();
-    setTimeout(() => {
-      setUser(user);
-      setToken(token);
-    }, 300);
+    handleAuthResponse(await response.json());
   };
 
   const handleLogin = async (data) => {
@@ -41,13 +43,7 @@ export default function AuthButtons() {
         'Content-Type': 'application/json',
       },
     });
-    const { user, token } = await response.json();
-
-    closeModal();
-    setTimeout(() => {
-      setUser(user);
-      setToken(token);
-    }, 300);
+    handleAuthResponse(await response.json());
   };
 
   return (

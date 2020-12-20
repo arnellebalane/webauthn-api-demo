@@ -1,19 +1,9 @@
-import { useContext } from 'react';
-import { useRouter } from 'next/router';
 import { Col, Row, Typography } from 'antd';
 import TFACard from '@/components/TFACard';
-import AuthContext from '@/contexts/AuthContext';
 
 const { Title } = Typography;
 
 export default function Settings() {
-  const router = useRouter();
-  const { token } = useContext(AuthContext);
-
-  if (!token) {
-    return router.push('/');
-  }
-
   const setupSecurityKey = () => {
     console.log('Setting up security key');
   };
@@ -33,15 +23,15 @@ export default function Settings() {
       <Row gutter={16}>
         <Col span={12}>
           <TFACard
-            title="Setup security key"
-            subtitle="For example: YubiKey, Titan Security Key, etc."
+            title="Setup roaming authenticator"
+            subtitle="E.g.: YubiKey, Titan Security Key, etc."
             onClick={setupSecurityKey}
           />
         </Col>
         <Col span={12}>
           <TFACard
-            title="Setup biometric key"
-            subtitle="For example: Apple Touch ID or Face ID, etc."
+            title="Setup platform authenticator"
+            subtitle="E.g.: Apple Touch/Face ID, Android fingerprint, etc."
             onClick={setupBiometricKey}
           />
         </Col>
