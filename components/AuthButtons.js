@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/css';
 import { Button, Card } from 'antd';
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
-import AuthContext from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 const MODALS = {
   REGISTER: 'register',
@@ -11,17 +11,14 @@ const MODALS = {
 };
 
 export default function AuthButtons() {
-  const { setUser, setToken } = useContext(AuthContext);
+  const { setAuth } = useAuth();
 
   const [modal, setModal] = useState(null);
   const closeModal = () => setModal(null);
 
-  const handleAuthResponse = ({ user, token }) => {
+  const handleAuthResponse = (data) => {
     closeModal();
-    setTimeout(() => {
-      setUser(user);
-      setToken(token);
-    }, 300);
+    setTimeout(() => setAuth(data), 300);
   };
 
   const handleRegister = async (data) => {

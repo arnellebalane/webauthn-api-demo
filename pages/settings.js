@@ -1,13 +1,12 @@
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import { Col, Row, Typography } from 'antd';
 import TFACard from '@/components/TFACard';
-import AuthContext, { AUTH_STATE } from '@/contexts/AuthContext';
+import { AUTH_STATE, useAuth } from '@/contexts/AuthContext';
 
 const { Title } = Typography;
 
 export default function Settings() {
-  const { token } = useContext(AuthContext);
+  const { token } = useAuth();
   const router = useRouter();
 
   if (token === AUTH_STATE.UNKNOWN) {

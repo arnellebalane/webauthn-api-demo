@@ -1,12 +1,11 @@
-import { useContext } from 'react';
 import Link from 'next/link';
 import { Divider, PageHeader } from 'antd';
 import { css } from '@emotion/css';
-import AuthContext from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import CurrentUser from './CurrentUser';
 
 export default function Header() {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const headerExtra = user ? <CurrentUser user={user} /> : null;
 
   const title = <Link href="/">WebAuthn API</Link>;
