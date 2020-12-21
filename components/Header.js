@@ -11,7 +11,7 @@ export default function Header() {
   const { user } = useAuth();
   const breakpoints = useBreakpoint();
 
-  const CurrentUserComponent = breakpoints.sm ? CurrentUserDrawer : CurrentUser;
+  const CurrentUserComponent = breakpoints.xs ? CurrentUserDrawer : CurrentUser;
   const headerExtra = user ? <CurrentUserComponent user={user} /> : null;
 
   const title = <Link href="/">WebAuthn API</Link>;

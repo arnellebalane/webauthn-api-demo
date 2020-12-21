@@ -44,19 +44,28 @@ export function AuthContextProvider({ children }) {
 
 export function useAuth() {
   const auth = useContext(AuthContext);
-  const { token, user, setUser } = auth;
+  const { token, user, setUser, signOut } = auth;
 
   useEffect(() => {
     if (token && !user) {
       (async () => {
-        const response = await fetch('/api/session', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const user = await response.json();
-        setUser(user);
+        try {
+          const response = await fetch('/api/session', {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const user = await response.json();
+
+          if (response.status >= 400 && response.status <= 599) {
+            return signOut();
+          }
+
+          setUser(user);
+        } catch (error) {
+          signOut();
+        }
       })();
     }
   }, [token]);
