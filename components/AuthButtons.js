@@ -21,17 +21,6 @@ export default function AuthButtons() {
     setTimeout(() => setAuth(data), 300);
   };
 
-  const handleRegister = async (data) => {
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    handleAuthResponse(await response.json());
-  };
-
   const handleLogin = async (data) => {
     const response = await fetch('/api/login', {
       method: 'POST',
@@ -57,8 +46,8 @@ export default function AuthButtons() {
         Login
       </Button>
 
-      <RegisterModal visible={modal === MODALS.REGISTER} onSubmit={handleRegister} onCancel={closeModal} />
-      <LoginModal visible={modal === MODALS.LOGIN} onSubmit={handleLogin} onCancel={closeModal} />
+      <RegisterModal visible={modal === MODALS.REGISTER} onFinish={closeModal} onCancel={closeModal} />
+      <LoginModal visible={modal === MODALS.LOGIN} onSubmit={closeModal} onCancel={closeModal} />
     </Card>
   );
 }
