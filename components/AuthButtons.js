@@ -3,7 +3,6 @@ import { css } from '@emotion/css';
 import { Button, Card } from 'antd';
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
-import { useAuth } from '@/contexts/AuthContext';
 
 const MODALS = {
   REGISTER: 'register',
@@ -11,26 +10,8 @@ const MODALS = {
 };
 
 export default function AuthButtons() {
-  const { setAuth } = useAuth();
-
   const [modal, setModal] = useState(null);
   const closeModal = () => setModal(null);
-
-  const handleAuthResponse = (data) => {
-    closeModal();
-    setTimeout(() => setAuth(data), 300);
-  };
-
-  const handleLogin = async (data) => {
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    handleAuthResponse(await response.json());
-  };
 
   return (
     <Card className={cardClass}>
@@ -47,7 +28,7 @@ export default function AuthButtons() {
       </Button>
 
       <RegisterModal visible={modal === MODALS.REGISTER} onFinish={closeModal} onCancel={closeModal} />
-      <LoginModal visible={modal === MODALS.LOGIN} onSubmit={closeModal} onCancel={closeModal} />
+      <LoginModal visible={modal === MODALS.LOGIN} onFinish={closeModal} onCancel={closeModal} />
     </Card>
   );
 }
