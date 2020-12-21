@@ -7,6 +7,8 @@ export const AUTH_STATE = {
   UNAUTHENTICATED: null,
 };
 
+const TOKEN_STORAGE_KEY = 'token';
+
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(AUTH_STATE.UNKNOWN);
   const [token, setToken] = useState(AUTH_STATE.UNKNOWN);
@@ -17,11 +19,19 @@ export function AuthContextProvider({ children }) {
     setUser,
     setToken(value) {
       setToken(value);
-      localStorage.setItem('token', value);
+      if (value) {
+        localStorage.setItem(TOKEN_STORAGE_KEY, value);
+      } else {
+        localStorage.removeItem(TOKEN_STORAGE_KEY);
+      }
     },
     setAuth({ user, token }) {
       value.setUser(user);
       value.setToken(token);
+    },
+    signOut() {
+      value.setUser(null);
+      value.setToken(null);
     },
   };
 

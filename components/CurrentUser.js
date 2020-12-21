@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import { css } from '@emotion/css';
 import { Avatar, Button, Dropdown, Menu } from 'antd';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function CurrentUser({ user }) {
+  const { signOut } = useAuth();
+
   const menu = (
     <Menu>
       <Menu.Item key="settings">
         <Link href="/settings">Settings</Link>
       </Menu.Item>
-      <Menu.Item key="logout">Logout</Menu.Item>
+      <Menu.Item key="logout" onClick={signOut}>
+        Logout
+      </Menu.Item>
     </Menu>
   );
 
