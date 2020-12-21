@@ -3,8 +3,8 @@ import AuthButtons from '@/components/AuthButtons';
 import DataFeed from '@/components/DataFeed';
 
 export default function Home() {
-  const { user } = useAuth();
-  const notLoggedIn = !Boolean(user);
+  const { token } = useAuth();
+  const notLoggedIn = !Boolean(token);
 
   return (
     <main>

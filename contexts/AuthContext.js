@@ -20,8 +20,8 @@ export function AuthContextProvider({ children }) {
       localStorage.setItem('token', value);
     },
     setAuth({ user, token }) {
-      setUser(user);
-      setToken(token);
+      value.setUser(user);
+      value.setToken(token);
     },
   };
 
@@ -34,6 +34,22 @@ export function AuthContextProvider({ children }) {
 
 export function useAuth() {
   const auth = useContext(AuthContext);
+  const { token, user, setUser } = auth;
+
+  useEffect(() => {
+    if (token && !user) {
+      (async () => {
+        const response = await fetch('/api/session', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const user = await response.json();
+        setUser(user);
+      })();
+    }
+  }, [token]);
 
   return auth;
 }
