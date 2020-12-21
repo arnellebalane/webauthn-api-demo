@@ -8,6 +8,18 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const { Title, Text } = Typography;
 
+const registerUser = async (payload) => {
+  const response = await fetch('/api/register', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
+  return { response, data };
+};
+
 export default function RegisterModal({ visible, onFinish, onCancel }) {
   const { setAuth } = useAuth();
   const [form] = Form.useForm();
@@ -18,17 +30,9 @@ export default function RegisterModal({ visible, onFinish, onCancel }) {
     setLoading(true);
     setError(null);
 
-    values = omit(values, ['passwordConfirmation']);
-
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
+      values = omit(values, ['passwordConfirmation']);
+      const { response, data } = await registerUser(values);
 
       if (response.status >= 400 && response.status <= 599) {
         return handleError(data);

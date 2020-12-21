@@ -6,6 +6,18 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const { Title, Text } = Typography;
 
+const sendRequest = async (payload) => {
+  const response = await fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
+  return { response, data };
+};
+
 export default function LoginModal({ visible, onFinish, onCancel }) {
   const { setAuth } = useAuth();
   const [form] = Form.useForm();
@@ -17,14 +29,7 @@ export default function LoginModal({ visible, onFinish, onCancel }) {
     setError(null);
 
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
+      const { response, data } = await sendRequest(values);
 
       if (response.status >= 400 && response.status <= 599) {
         return handleError(data);
