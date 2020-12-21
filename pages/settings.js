@@ -32,15 +32,15 @@ export default function Settings() {
         access your account, even if someone knows your password.
       </p>
 
-      <Row gutter={16}>
-        <Col span={12}>
+      <Row gutter={[16, 16]}>
+        <Col span={24} sm={12}>
           <TFACard
             title="Setup roaming authenticator"
             subtitle="E.g.: YubiKey, Titan Security Key, etc."
             onClick={setupSecurityKey}
           />
         </Col>
-        <Col span={12}>
+        <Col span={24} sm={12}>
           <TFACard
             title="Setup platform authenticator"
             subtitle="E.g.: Apple Touch/Face ID, Android fingerprint, etc."

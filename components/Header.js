@@ -1,12 +1,18 @@
 import Link from 'next/link';
-import { Divider, PageHeader } from 'antd';
+import { Divider, Grid, PageHeader } from 'antd';
 import { css } from '@emotion/css';
 import { useAuth } from '@/contexts/AuthContext';
 import CurrentUser from './CurrentUser';
+import CurrentUserDrawer from './CurrentUserDrawer';
+
+const { useBreakpoint } = Grid;
 
 export default function Header() {
   const { user } = useAuth();
-  const headerExtra = user ? <CurrentUser user={user} /> : null;
+  const breakpoints = useBreakpoint();
+
+  const CurrentUserComponent = breakpoints.sm ? CurrentUserDrawer : CurrentUser;
+  const headerExtra = user ? <CurrentUserComponent user={user} /> : null;
 
   const title = <Link href="/">WebAuthn API</Link>;
 
