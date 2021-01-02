@@ -21,3 +21,15 @@ model User {
   password    String
   image_url   String
 }
+
+model Credential {
+  @@map(name: "credentials")
+
+  id          String    @id
+  public_key  String
+  counter     Int
+  fmt         String
+
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id     Int
+}
