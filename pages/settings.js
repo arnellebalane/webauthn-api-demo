@@ -16,8 +16,11 @@ export default function Settings() {
     return null;
   }
 
-  const setupSecurityKey = () => {
-    console.log('Setting up security key');
+  const setupSecurityKey = async () => {
+    const response = await fetch('/api/credentials/create', {
+      method: 'POST',
+    });
+    console.log(await response.json());
   };
 
   const setupBiometricKey = () => {
