@@ -15,6 +15,7 @@
     "@emotion/css": "11.0.0",
     "@prisma/cli": "2.13.1",
     "@prisma/client": "2.13.1",
+    "@simplewebauthn/server": "^2.1.0",
     "antd": "4.9.4",
     "bcrypt": "5.0.0",
     "dotenv": "8.2.0",

@@ -29,7 +29,5 @@ model Credential {
   public_key  String
   counter     Int
   fmt         String
-
-  user        User      @relation(fields: [user_id], references: [id])
   user_id     Int
 }
