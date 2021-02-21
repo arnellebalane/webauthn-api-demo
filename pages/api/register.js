@@ -1,11 +1,11 @@
 import pick from 'lodash/pick';
-import { registerUser } from '@/lib/db';
+import { createUser } from '@/lib/db';
 import { generateToken, json } from '@/lib/utils';
 import { handleError } from '@/lib/errors';
 
 export default async function handler(req, res) {
   try {
-    const user = await registerUser(req.body);
+    const user = await createUser(req.body);
     const token = generateToken({ uid: user.uid });
 
     const response = {

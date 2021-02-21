@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { Col, Row, Typography } from 'antd';
+import base64url from 'base64url';
 import TFACard from '@/components/TFACard';
 import { AUTH_STATE, useAuth } from '@/contexts/AuthContext';
-import { base64URLStringToBuffer, bufferToBase64URLString } from '@/lib/utils-browser';
 
 const { Title } = Typography;
 
@@ -26,18 +26,18 @@ export default function Settings() {
       },
     });
     const { attestation, token: newToken } = await responseGET.json();
-    attestation.challenge = base64URLStringToBuffer(attestation.challenge);
-    attestation.user.id = base64URLStringToBuffer(attestation.user.id);
+    attestation.challenge = base64url.toBuffer(attestation.challenge);
+    attestation.user.id = base64url.toBuffer(attestation.user.id);
 
     const credential = await navigator.credentials.create({
       publicKey: attestation,
     });
     const credentialJSON = {
       id: credential.id,
-      rawId: bufferToBase64URLString(credential.rawId),
+      rawId: base64url(credential.rawId),
       response: {
-        attestationObject: bufferToBase64URLString(credential.response.attestationObject),
-        clientDataJSON: bufferToBase64URLString(credential.response.clientDataJSON),
+        attestationObject: base64url(credential.response.attestationObject),
+        clientDataJSON: base64url(credential.response.clientDataJSON),
       },
       type: credential.type,
     };
