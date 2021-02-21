@@ -1,21 +1,57 @@
 import { useState } from 'react';
 import { css } from '@emotion/css';
 import { Button, Form, Input, Modal, Typography } from 'antd';
+import base64url from 'base64url';
 import { INCORRECT_CREDENTIALS_ERROR } from '@/lib/errors';
 import { useAuth } from '@/contexts/AuthContext';
 
 const { Title, Text } = Typography;
 
 const sendRequest = async (payload) => {
-  const response = await fetch('/api/login', {
+  const responseLogin = await fetch('/api/login', {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
       'Content-Type': 'application/json',
     },
   });
-  const data = await response.json();
-  return { response, data };
+  const dataLogin = await responseLogin.json();
+
+  if (dataLogin.user) {
+    return { response: responseLogin, data: dataLogin };
+  }
+
+  const { assertion, token } = dataLogin;
+  assertion.challenge = base64url.toBuffer(assertion.challenge);
+  assertion.allowCredentials = assertion.allowCredentials.map((credential) => ({
+    ...credential,
+    id: base64url.toBuffer(credential.id),
+  }));
+
+  const credential = await navigator.credentials.get({
+    publicKey: assertion,
+  });
+  const credentialJSON = {
+    id: credential.id,
+    rawId: base64url(credential.rawId),
+    response: {
+      authenticatorData: base64url(credential.response.authenticatorData),
+      clientDataJSON: base64url(credential.response.clientDataJSON),
+      signature: base64url(credential.response.signature),
+    },
+    type: credential.type,
+  };
+
+  const responseVerify = await fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify({ ...payload, credential: credentialJSON }),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const dataVerify = await responseVerify.json();
+  return { response: responseVerify, data: dataVerify };
 };
 
 export default function LoginModal({ visible, onFinish, onCancel }) {
