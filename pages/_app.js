@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { css } from '@emotion/css';
 import Header from '@/components/Header';
 import { AuthContextProvider } from '@/contexts/AuthContext';
@@ -6,6 +7,10 @@ import 'antd/dist/antd.css';
 export default function App({ Component, pageProps }) {
   return (
     <AuthContextProvider>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width" />
+      </Head>
+
       <div className={wrapperClass}>
         <Header />
         <Component {...pageProps} />

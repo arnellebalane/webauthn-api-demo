@@ -18,6 +18,7 @@ export default async function handler(req, res) {
     const token = req.headers.authorization.replace(/^bearer\s+/gi, '');
     const payload = verifyToken(token);
     const credential = await getCredential(req.body.credential.id);
+    console.log(credential, req.body);
     const verification = await verifyAssertion(req.body.credential, user, credential, payload.challenge);
     await setCredentialCounter(credential, verification.authnrData.counter);
 
