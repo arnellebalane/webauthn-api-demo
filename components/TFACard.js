@@ -1,14 +1,19 @@
 import { css } from '@emotion/css';
-import { Card, Typography } from 'antd';
+import { Card, Spin, Typography } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
-export default function TFACard({ title, subtitle, onClick }) {
+const LoadingIndicator = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
+export default function TFACard({ title, subtitle, loading, onClick }) {
   return (
-    <Card className={cardClass} onClick={onClick}>
-      <Title level={5}>{title}</Title>
-      <p className={subtitleClass}>{subtitle}</p>
-    </Card>
+    <Spin spinning={loading} indicator={LoadingIndicator}>
+      <Card className={cardClass} onClick={onClick}>
+        <Title level={5}>{title}</Title>
+        <p className={subtitleClass}>{subtitle}</p>
+      </Card>
+    </Spin>
   );
 }
 
