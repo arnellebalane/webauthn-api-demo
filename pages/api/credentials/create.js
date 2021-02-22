@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     const user = await getUser(payload.uid);
 
     if (req.method === 'GET') {
-      const attestation = await generateAttestastion(user);
+      const attestation = await generateAttestastion(req.query.type, user);
       const response = {
         attestation,
         token: generateToken({ uid: user.uid, challenge: attestation.challenge }),
