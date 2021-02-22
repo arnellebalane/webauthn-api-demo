@@ -17,7 +17,7 @@ const sendRequest = async (payload) => {
   });
   const dataLogin = await responseLogin.json();
 
-  if (dataLogin.user) {
+  if (dataLogin.user || dataLogin.error_code) {
     return { response: responseLogin, data: dataLogin };
   }
 
